@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jsonize
+
+A powerful online JSON editor with dual-panel layout, multiple views, and AI-powered analysis.
+
+**Live:** [jsonize.vercel.app](https://jsonize.vercel.app)
+
+## Features
+
+### Dual-Panel Editor
+- Side-by-side JSON editing with independent view modes
+- Copy content between panels (left ↔ right)
+- Each panel supports Text, Tree, and Table views
+
+### Text View
+- Syntax-aware editor with line numbers
+- Real-time JSON validation with error highlighting
+- Cursor position indicator (line:column)
+
+### Tree View
+- Collapsible/expandable nodes
+- Color-coded syntax (strings, numbers, booleans, nulls)
+- Inline editing with live updates
+
+### Table View
+- Array of objects → spreadsheet-style table with auto-detected columns
+- Single object → key-value-type breakdown
+
+### JSON Transformations
+- **Format** — Pretty print with 2-space indentation
+- **Compact** — Minify to single line
+- **Sort** — Recursively sort object keys alphabetically
+
+### JSONPath Query
+- jq-style query bar per panel
+- Supports `.key`, `[0]`, `[*]`, `[0:5]` slicing, and filtering
+
+### JSON Schema Validation
+- Validate against JSON Schema (draft-07)
+- Auto-generate schema from current data
+- Detailed error reports with paths and messages
+- Powered by [AJV](https://ajv.js.org/)
+
+### AI Explain
+- **Basic mode** — Static analysis: structure overview, type breakdown, pattern detection
+- **AI mode** — Streaming explanation via Google Gemini API
+- Supports Korean, English, Japanese, Chinese
+
+### Other
+- Load JSON from URL
+- Open / save local `.json` files
+- 7 color themes with persistent selection
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+
+
+### Installation
+
+```bash
+cd jsonize
+npm install
+```
+
+### Environment Variables
+
+Copy the example file and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `GEMINI_API_KEY` | Optional | Google Gemini API key for AI Explain feature |
+| `NEXT_PUBLIC_GOOGLE_AD_CLIENT` | Optional | Google AdSense publisher ID |
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- [Next.js](https://nextjs.org/) 16 (App Router)
+- [React](https://react.dev/) 19
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) 4
+- [AJV](https://ajv.js.org/) — JSON Schema validation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
