@@ -5,7 +5,6 @@ import styles from "./page.module.css";
 import Header from "@/components/Header";
 import TextEditor from "@/components/TextEditor";
 import TreeView from "@/components/TreeView";
-import TableView from "@/components/TableView";
 import PanelHeader from "@/components/PanelHeader";
 import QueryBar from "@/components/QueryBar";
 import AdBanner from "@/components/AdBanner";
@@ -14,7 +13,7 @@ import UrlLoader from "@/components/UrlLoader";
 import ExplainPanel from "@/components/ExplainPanel";
 import FeedbackWidget from "@/components/FeedbackWidget";
 
-type ViewMode = "text" | "tree" | "table";
+type ViewMode = "text" | "tree";
 
 const DEFAULT_JSON = `{
   "region": "Asia-Pacific",
@@ -121,8 +120,6 @@ export default function Home() {
         return <TextEditor value={text} onChange={setText} />;
       case "tree":
         return <TreeView json={text} onUpdate={setText} />;
-      case "table":
-        return <TableView json={text} />;
     }
   };
 
