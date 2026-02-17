@@ -74,6 +74,7 @@ cp .env.example .env.local
 |----------|----------|-------------|
 | `GEMINI_API_KEY` | Optional | Google Gemini API key for AI Explain feature |
 | `NEXT_PUBLIC_GOOGLE_AD_CLIENT` | Optional | Google AdSense publisher ID |
+| `GITHUB_FEEDBACK_TOKEN` | Optional | Fine-grained PAT for in-app feedback → GitHub Issues |
 
 ### Development
 
@@ -89,6 +90,16 @@ Open [http://localhost:3000](http://localhost:3000).
 npm run build
 npm start
 ```
+
+## Community & Feedback
+
+We'd love to hear from you! Here's how to get involved:
+
+- **In-App Feedback** — Click the feedback button (bottom-right) to report bugs or request features
+- **[GitHub Issues](https://github.com/jm614qk2l/jsonize/issues)** — Bug reports and feature requests
+- **[GitHub Discussions](https://github.com/jm614qk2l/jsonize/discussions)** — Questions, ideas, and general discussion
+- **[Discord](https://discord.gg/jsonize)** — Real-time chat with the community
+- **[Changelog](/changelog)** — See what's new in every release
 
 ## Tech Stack
 

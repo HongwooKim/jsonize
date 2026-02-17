@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.6.1",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1",
     "next": "16.1.6",

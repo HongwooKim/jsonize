@@ -1,0 +1,149 @@
+.container {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  background: var(--bg-header);
+  color: var(--text-header);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-header);
+  text-decoration: none;
+  font-size: 13px;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+
+.backLink:hover {
+  opacity: 1;
+}
+
+.navTitle {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.pageDesc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+}
+
+/* Version entry */
+.entry {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 40px;
+}
+
+.entry::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  bottom: -24px;
+  width: 2px;
+  background: var(--border-color);
+}
+
+.entry:last-child::before {
+  bottom: 0;
+}
+
+.dot {
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.entryHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.version {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.date {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.entryTitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.changeList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.changeItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.badgeAdded {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+}
+
+.badgeImproved {
+  background: rgba(96, 165, 250, 0.15);
+  color: #60a5fa;
+}
+
+.badgeFixed {
+  background: rgba(251, 191, 36, 0.15);
+  color: #fbbf24;
+}
