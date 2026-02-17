@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import styles from "./PanelHeader.module.css";
 
-type ViewMode = "text" | "tree" | "table";
+type ViewMode = "text" | "tree";
 
 interface PanelHeaderProps {
   name: string;
@@ -84,9 +84,9 @@ export default function PanelHeader({
 
   return (
     <div className={styles.panelHeader}>
-      {/* View mode pill tabs */}
+      {/* View mode pill tabs + AI button */}
       <div className={styles.viewModes}>
-        {(["text", "tree", "table"] as ViewMode[]).map((m) => (
+        {(["text", "tree"] as ViewMode[]).map((m) => (
           <button
             key={m}
             className={`${styles.viewBtn} ${view === m ? styles.viewBtnActive : ""}`}
@@ -96,6 +96,12 @@ export default function PanelHeader({
           </button>
         ))}
       </div>
+      <button className={styles.aiBtn} onClick={onExplain} title="AI Explain this JSON">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/>
+        </svg>
+        <span>AI</span>
+      </button>
 
       {/* Inline-editable document name */}
       {editingName ? (
@@ -161,14 +167,6 @@ export default function PanelHeader({
         <button className={styles.actionBtn} onClick={onSort} title="Sort keys">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M3 6h7M3 12h5M3 18h3M16 4l4 4-4 4M20 8H10" />
-          </svg>
-        </button>
-
-        <div className={styles.separator} />
-
-        <button className={styles.actionBtn} onClick={onExplain} title="AI Explain this JSON">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8z"/>
           </svg>
         </button>
 
