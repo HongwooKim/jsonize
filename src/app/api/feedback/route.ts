@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     issueBody += `\n*Contact: ${email}*`;
   }
 
-  const owner = process.env.GITHUB_REPO_OWNER || "jm614qk2l";
+  const owner = process.env.GITHUB_REPO_OWNER || "HongwooKim";
   const repo = process.env.GITHUB_REPO_NAME || "jsonize";
 
   const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/issues`, {
