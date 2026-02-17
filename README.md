@@ -53,7 +53,7 @@ A powerful online JSON editor with dual-panel layout, multiple views, and AI-pow
 ## Getting Started
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 20.9.0+
 
 ### Installation
 
