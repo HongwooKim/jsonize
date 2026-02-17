@@ -1,0 +1,112 @@
+.panelHeader {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-light);
+  min-height: 36px;
+}
+
+/* Pill view mode tabs */
+.viewModes {
+  display: flex;
+  background: var(--btn-bg);
+  border-radius: 999px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.viewBtn {
+  padding: 3px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  border-radius: 999px;
+  text-transform: capitalize;
+}
+
+.viewBtn:hover {
+  color: var(--text-primary);
+}
+
+.viewBtnActive {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Editable document name */
+.docName {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+}
+
+.docName:hover {
+  color: var(--text-primary);
+}
+
+.docNameInput {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--editor-bg);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm, 6px);
+  padding: 2px 8px;
+  outline: none;
+  text-align: center;
+}
+
+/* Icon action buttons */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm, 6px);
+}
+
+.actionBtn:hover {
+  background: var(--btn-bg);
+  color: var(--text-primary);
+}
+
+.actionBtn:active {
+  background: var(--btn-hover);
+}
+
+.separator {
+  width: 1px;
+  height: 16px;
+  background: var(--border-light);
+  margin: 0 3px;
+  align-self: center;
+  flex-shrink: 0;
+}

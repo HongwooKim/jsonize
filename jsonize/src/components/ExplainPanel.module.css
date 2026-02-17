@@ -1,0 +1,243 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.panel {
+  width: 600px;
+  max-width: 90vw;
+  height: 80vh;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--bg-header);
+  color: var(--text-header);
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.modeTabs {
+  display: flex;
+  gap: 4px;
+}
+
+.modeTab {
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-header);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.modeTab:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.modeTabActive {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.langSelect {
+  padding: 3px 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-header);
+  border-radius: 999px;
+  cursor: pointer;
+  outline: none;
+}
+
+.langSelect option {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--text-header);
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0.8;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 40px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border-light);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.errorBox {
+  padding: 20px;
+  text-align: center;
+  color: var(--color-error, #f87171);
+  font-size: 13px;
+}
+
+.errorBox p {
+  margin: 0 0 12px;
+}
+
+.retryBtn {
+  padding: 6px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.retryBtn:hover {
+  opacity: 0.9;
+}
+
+.body {
+  flex: 1 1 0px;
+  overflow-y: scroll;
+  padding: 16px;
+}
+
+.content {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-primary);
+}
+
+.content :global(.md-h3) {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 16px 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--accent);
+}
+
+.content :global(.md-h3:first-child) {
+  margin-top: 0;
+}
+
+.content :global(.md-code) {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  background: var(--btn-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--accent-border);
+}
+
+.content :global(.md-table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.content :global(.md-table th),
+.content :global(.md-table td) {
+  text-align: left;
+  padding: 5px 8px;
+  border: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+
+.content :global(.md-table th) {
+  background: var(--bg-toolbar);
+  font-weight: 600;
+}
+
+.content :global(.md-h4) {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 12px 0 6px;
+  color: var(--text-secondary);
+}
+
+.content :global(.md-pre) {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm, 6px);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+  margin: 8px 0;
+  border: 1px solid var(--border-light);
+}
+
+.content :global(.md-ul) {
+  margin: 4px 0;
+  padding-left: 20px;
+}
+
+.content :global(.md-li) {
+  margin: 2px 0;
+}
+
+.streamingDot {
+  color: var(--accent);
+  font-size: 16px;
+  padding: 4px 0;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}

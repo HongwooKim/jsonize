@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Jsonize Promo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0a0a12;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  }
+
+  /* ===== AMBIENT ===== */
+  .bg-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(140px);
+    pointer-events: none;
+    opacity: 0.12;
+  }
+  .bg-glow-1 { width: 500px; height: 500px; background: #7c3aed; top: -150px; right: -100px; }
+  .bg-glow-2 { width: 400px; height: 400px; background: #2563eb; bottom: -100px; left: -80px; }
+
+  /* ===== CURSOR ===== */
+  .cursor {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    animation:
+      cursorShow 0.3s ease 1s forwards,
+      cursorMove 25s ease 1s forwards;
+  }
+
+  .cursor svg { width: 20px; height: 20px; }
+
+  @keyframes cursorShow {
+    to { opacity: 1; }
+  }
+
+  /* Cursor path through the demo */
+  @keyframes cursorMove {
+    0%    { left: 540px; top: 540px; }
+    /* Scene 1: idle center */
+    8%    { left: 540px; top: 540px; }
+    /* Scene 2: move to tree tab */
+    14%   { left: 680px; top: 295px; }
+    15%   { left: 680px; top: 295px; }
+    /* Scene 2: move to theme button */
+    22%   { left: 870px; top: 228px; }
+    23%   { left: 870px; top: 228px; }
+    /* Scene 3: move down to theme option */
+    28%   { left: 870px; top: 370px; }
+    29%   { left: 870px; top: 370px; }
+    /* Scene 4: move to AI explain sparkle */
+    38%   { left: 450px; top: 295px; }
+    39%   { left: 450px; top: 295px; }
+    /* Scene 4: idle on AI panel */
+    55%   { left: 500px; top: 500px; }
+    /* Scene 5: features */
+    70%   { left: 540px; top: 540px; }
+    /* Scene 6: CTA */
+    85%   { left: 540px; top: 540px; }
+    100%  { left: 540px; top: 540px; }
+  }
+
+  /* Click ripple */
+  .click-ripple {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(124, 58, 237, 0.3);
+    transform: translate(-50%, -50%) scale(0);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  .ripple-1 { left: 680px; top: 295px; animation: ripple 0.4s ease 3.8s forwards; }
+  .ripple-2 { left: 870px; top: 228px; animation: ripple 0.4s ease 6.2s forwards; }
+  .ripple-3 { left: 870px; top: 370px; animation: ripple 0.4s ease 7.5s forwards; }
+  .ripple-4 { left: 450px; top: 295px; animation: ripple 0.4s ease 10s forwards; }
+
+  @keyframes ripple {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; }
+  }
+
+  /* ===== NARRATOR BUBBLE ===== */
+  .narrator {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    text-align: center;
+  }
+
+  .bubble {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding: 14px 28px;
+    background: rgba(15, 14, 23, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(124, 58, 237, 0.25);
+    border-radius: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #e2e8f0;
+    opacity: 0;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    line-height: 1.5;
+  }
+
+  .bubble em {
+    font-style: normal;
+    background: linear-gradient(135deg, #7c3aed, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+
+  .bubble small {
+    font-size: 16px;
+    font-weight: 400;
+    color: #94a3b8;
+  }
+
+  /* Narrator timing */
+  .b1 { animation: bubbleShow 2.8s ease 0.5s forwards; }
+  .b2 { animation: bubbleShow 2.5s ease 3.5s forwards; }
+  .b3 { animation: bubbleShow 2.5s ease 6s forwards; }
+  .b4 { animation: bubbleShow 2.5s ease 8.8s forwards; }
+  .b5 { animation: bubbleShow 3.5s ease 11.5s forwards; }
+  .b6 { animation: bubbleShow 2.8s ease 15.5s forwards; }
+  .b7 { animation: bubbleShow 5s ease 19s forwards; }
+
+  @keyframes bubbleShow {
+    0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+    12% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+  }
+
+  /* ===== APP MOCK ===== */
+  .app {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    right: 80px;
+    bottom: 160px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(124,58,237,0.12);
+    opacity: 0;
+    transform: scale(0.95);
+    animation: appIn 0.8s ease 0.8s forwards;
+  }
+
+  @keyframes appIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Header */
+  .app-header {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    color: #f1f5f9;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    transition: background 0.6s ease;
+  }
+
+  .app-header.theme-forest { background: #4b7a2e; }
+  .app-header.theme-ocean { background: #1565c0; }
+
+  .app-logo { font-size: 16px; font-weight: 700; }
+
+  .cmd-bar {
+    display: flex; gap: 4px; padding: 3px 8px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 99px;
+  }
+  .cmd-dot {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+  }
+  .cmd-sep {
+    width: 1px; height: 16px; background: rgba(255,255,255,0.2);
+    margin: 4px 3px;
+  }
+
+  .theme-btn {
+    display: flex; align-items: center; gap: 6px;
+    padding: 4px 14px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 99px;
+    font-size: 12px; color: #f1f5f9;
+  }
+  .theme-swatch {
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    background: #7c3aed;
+    transition: background 0.4s;
+  }
+
+  /* Theme dropdown */
+  .theme-dropdown {
+    position: absolute;
+    top: 44px; right: 16px;
+    background: #1a1a2e;
+    border: 1px solid #2d2d4a;
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+    animation: dropdownShow 2.2s ease 6.2s forwards;
+  }
+
+  @keyframes dropdownShow {
+    0% { opacity: 0; transform: translateY(-8px); }
+    10% { opacity: 1; transform: translateY(0); }
+    85% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-8px); }
+  }
+
+  .dd-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 13px; color: #e2e8f0;
+  }
+  .dd-item-active { background: #2d2050; font-weight: 600; }
+  .dd-swatch {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 2px solid #252544;
+  }
+
+  /* Body */
+  .app-body {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 44px);
+    padding: 6px;
+    gap: 0;
+    background: #0f0e17;
+    transition: background 0.6s ease;
+  }
+
+  .panel {
+    flex: 1;
+    border-radius: 12px;
+    background: rgba(26,26,46,0.7);
+    border: 1px solid #252544;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: background 0.6s, border-color 0.6s;
+  }
+
+  .panel-divider {
+    width: 3px; align-self: stretch;
+    margin: 24px 3px; border-radius: 2px;
+    background: #252544;
+  }
+
+  .panel-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 10px;
+    background: #1a1a2e;
+    border-bottom: 1px solid #252544;
+    transition: background 0.6s;
+  }
+
+  .pill-group {
+    display: flex;
+    background: #252544;
+    border-radius: 99px;
+    padding: 2px;
+    transition: background 0.6s;
+  }
+
+  .pill {
+    padding: 3px 11px;
+    border-radius: 99px;
+    font-size: 10px;
+    font-weight: 500;
+    color: #94a3b8;
+    transition: all 0.3s;
+  }
+
+  .pill-active {
+    background: #7c3aed;
+    color: #fff;
+    font-weight: 600;
+    transition: background 0.4s;
+  }
+
+  .doc-name {
+    flex: 1;
+    text-align: center;
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  .action-dots {
+    display: flex; gap: 2px;
+  }
+  .action-dot {
+    width: 22px; height: 20px;
+    border-radius: 5px;
+    background: transparent;
+  }
+  .action-dot:hover { background: #252544; }
+
+  /* Editor content */
+  .editor {
+    flex: 1; padding: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    line-height: 19px;
+    overflow: hidden;
+    color: #e2e8f0;
+  }
+
+  .json-key { color: #c084fc; }
+  .json-str { color: #34d399; }
+  .json-num { color: #fbbf24; }
+  .json-bkt { color: #94a3b8; font-weight: 600; }
+  .json-bool { color: #60a5fa; }
+  .tree-toggle { color: #64748b; font-size: 9px; cursor: pointer; }
+  .tree-count { color: #64748b; font-size: 9px; }
+
+  /* Status bar */
+  .status-bar {
+    padding: 3px 10px;
+    font-size: 10px;
+    color: #64748b;
+    border-top: 1px solid #252544;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .status-badge {
+    padding: 0 5px;
+    background: rgba(74,222,128,0.1);
+    color: #4ade80;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 9px;
+  }
+
+  /* ===== AI PANEL OVERLAY ===== */
+  .ai-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    animation: aiOverlayShow 6s ease 10.2s forwards;
+  }
+
+  @keyframes aiOverlayShow {
+    0% { opacity: 0; }
+    5% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .ai-modal {
+    width: 580px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #2d2d4a;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+    transform: scale(0.93);
+    opacity: 0;
+    animation: aiModalIn 0.5s ease 10.4s forwards;
+  }
+
+  @keyframes aiModalIn {
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .ai-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #f1f5f9;
+  }
+  .ai-title { font-size: 14px; font-weight: 700; }
+  .ai-tabs { display: flex; gap: 5px; }
+  .ai-tab {
+    padding: 3px 12px; border-radius: 99px;
+    font-size: 11px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.08);
+    color: #f1f5f9;
+  }
+  .ai-tab-active {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.45);
+  }
+
+  .ai-body {
+    padding: 18px;
+    background: #0f0e17;
+    min-height: 280px;
+  }
+
+  .ai-line {
+    opacity: 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #e2e8f0;
+    margin-bottom: 4px;
+  }
+
+  .ai-line:nth-child(1) { animation: aiType 0.25s ease 11s forwards; }
+  .ai-line:nth-child(2) { animation: aiType 0.25s ease 11.4s forwards; }
+  .ai-line:nth-child(3) { animation: aiType 0.25s ease 11.8s forwards; }
+  .ai-line:nth-child(4) { animation: aiType 0.25s ease 12.2s forwards; }
+  .ai-line:nth-child(5) { animation: aiType 0.25s ease 12.6s forwards; }
+  .ai-line:nth-child(6) { animation: aiType 0.25s ease 13s forwards; }
+  .ai-line:nth-child(7) { animation: aiType 0.25s ease 13.4s forwards; }
+  .ai-line:nth-child(8) { animation: aiType 0.25s ease 13.8s forwards; }
+
+  @keyframes aiType {
+    from { opacity: 0; transform: translateX(-6px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .ai-h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #7c3aed;
+    margin: 10px 0 5px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #252544;
+  }
+  .ai-badge {
+    display: inline;
+    background: rgba(124,58,237,0.15);
+    color: #c084fc;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .ai-dot {
+    color: #7c3aed;
+    animation: blink 1s ease infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+
+  /* ===== FEATURES FLASH ===== */
+  .features-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 70;
+    opacity: 0;
+    pointer-events: none;
+    background: rgba(10,10,18,0.92);
+    animation: featuresShow 3.5s ease 15.5s forwards;
+  }
+
+  @keyframes featuresShow {
+    0% { opacity: 0; }
+    8% { opacity: 1; }
+    82% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .feat-row {
+    display: flex;
+    gap: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .feat-row:nth-child(1) { animation: featIn 0.4s ease 15.8s forwards; }
+  .feat-row:nth-child(2) { animation: featIn 0.4s ease 16.1s forwards; }
+  .feat-row:nth-child(3) { animation: featIn 0.4s ease 16.4s forwards; }
+
+  @keyframes featIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .feat-card {
+    width: 280px;
+    padding: 20px 24px;
+    background: rgba(26,26,46,0.6);
+    border: 1px solid #2d2d4a;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .feat-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .feat-card h3 { font-size: 15px; font-weight: 700; color: #e2e8f0; }
+  .feat-card p { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+
+  /* ===== CTA FINAL ===== */
+  .cta-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 80;
+    opacity: 0;
+    pointer-events: none;
+    background: #0a0a12;
+    animation: ctaShow 6s ease 19.5s forwards;
+  }
+
+  @keyframes ctaShow {
+    0% { opacity: 0; }
+    8% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+
+  .cta-logo {
+    font-size: 80px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    background: linear-gradient(135deg, #7c3aed, #2563eb, #34d399);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradShift 3s ease infinite;
+    opacity: 0;
+    animation: ctaLogoIn 0.8s ease 19.8s forwards, gradShift 3s ease infinite;
+  }
+
+  @keyframes gradShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes ctaLogoIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .cta-url {
+    font-size: 26px;
+    font-weight: 500;
+    color: #94a3b8;
+    margin-top: 12px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 20.3s forwards;
+  }
+
+  .cta-pills {
+    display: flex;
+    gap: 10px;
+    margin-top: 32px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 20.8s forwards;
+  }
+
+  .cta-pill {
+    padding: 8px 20px;
+    border-radius: 99px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid #2d2d4a;
+    background: rgba(26,26,46,0.6);
+    color: #e2e8f0;
+  }
+  .cta-pill-glow {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    border: none;
+    color: #fff;
+  }
+
+  .cta-free {
+    margin-top: 24px;
+    font-size: 18px;
+    color: #64748b;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 21.2s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient -->
+<div class="bg-glow bg-glow-1"></div>
+<div class="bg-glow bg-glow-2"></div>
+
+<!-- Cursor -->
+<div class="cursor">
+  <svg viewBox="0 0 24 24" fill="white" stroke="none">
+    <path d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.86-4.86a.5.5 0 0 1 .35-.15h6.87a.5.5 0 0 0 .35-.85L6.35 2.86a.5.5 0 0 0-.85.35z"/>
+  </svg>
+</div>
+
+<!-- Click ripples -->
+<div class="click-ripple ripple-1"></div>
+<div class="click-ripple ripple-2"></div>
+<div class="click-ripple ripple-3"></div>
+<div class="click-ripple ripple-4"></div>
+
+<!-- ===== APP MOCK ===== -->
+<div class="app">
+  <!-- Header -->
+  <div class="app-header" id="appHeader">
+    <div class="app-logo">Jsonize</div>
+    <div class="cmd-bar">
+      <div class="cmd-dot"></div>
+      <div class="cmd-dot"></div>
+      <div class="cmd-sep"></div>
+      <div class="cmd-dot"></div>
+    </div>
+    <div class="theme-btn">
+      <div class="theme-swatch" id="themeSwatch"></div>
+      Theme
+    </div>
+  </div>
+
+  <!-- Theme dropdown -->
+  <div class="theme-dropdown">
+    <div class="dd-item dd-item-active">
+      <div class="dd-swatch" style="background:#7c3aed"></div> Nebula
+    </div>
+    <div class="dd-item">
+      <div class="dd-swatch" style="background:#4b7a2e"></div> Forest
+    </div>
+    <div class="dd-item">
+      <div class="dd-swatch" style="background:#1565c0"></div> Ocean
+    </div>
+    <div class="dd-item">
+      <div class="dd-swatch" style="background:#e65100"></div> Sunset
+    </div>
+    <div class="dd-item">
+      <div class="dd-swatch" style="background:#7b1fa2"></div> Berry
+    </div>
+    <div class="dd-item">
+      <div class="dd-swatch" style="background:#1e1e2e"></div> Midnight
+    </div>
+    <div class="dd-item">
+      <div class="dd-swatch" style="background:#c62850"></div> Rose
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="app-body">
+    <!-- Left panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="pill-group">
+          <div class="pill pill-active" id="leftTextPill">text</div>
+          <div class="pill" id="leftTreePill">tree</div>
+          <div class="pill">table</div>
+        </div>
+        <div class="doc-name">weather.json</div>
+        <div class="action-dots">
+          <div class="action-dot"></div>
+          <div class="action-dot"></div>
+          <div class="action-dot"></div>
+          <div class="action-dot"></div>
+        </div>
+      </div>
+      <div class="editor">
+        <span class="json-bkt">{</span><br>
+        &nbsp;&nbsp;<span class="json-key">"region"</span>: <span class="json-str">"Asia-Pacific"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"updated"</span>: <span class="json-str">"2025-06-15T09:00:00Z"</span>,<br>
+        &nbsp;&nbsp;<span class="json-key">"cities"</span>: <span class="json-bkt">[</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-bkt">{</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-str">"Seoul"</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"country"</span>: <span class="json-str">"KR"</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"temp"</span>: <span class="json-num">27</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"humidity"</span>: <span class="json-num">62</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"condition"</span>: <span class="json-str">"Partly Cloudy"</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"wind"</span>: <span class="json-bkt">{</span> <span class="json-key">"speed"</span>: <span class="json-num">12</span> <span class="json-bkt">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-bkt">}</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-bkt">{</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-str">"Tokyo"</span>,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"temp"</span>: <span class="json-num">30</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="json-bkt">}</span><br>
+        &nbsp;&nbsp;<span class="json-bkt">]</span><br>
+        <span class="json-bkt">}</span>
+      </div>
+      <div class="status-bar">
+        <span class="status-badge">Valid</span>
+        Ln 1, Col 1
+      </div>
+    </div>
+
+    <div class="panel-divider"></div>
+
+    <!-- Right panel -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="pill-group">
+          <div class="pill">text</div>
+          <div class="pill pill-active">tree</div>
+          <div class="pill">table</div>
+        </div>
+        <div class="doc-name">weather.json</div>
+        <div class="action-dots">
+          <div class="action-dot"></div>
+          <div class="action-dot"></div>
+          <div class="action-dot"></div>
+          <div class="action-dot"></div>
+        </div>
+      </div>
+      <div class="editor" style="line-height:22px">
+        <span class="tree-toggle">▼</span> <span class="json-bkt">{</span> <span class="tree-count">4 items</span><br>
+        &nbsp;&nbsp;&nbsp;<span class="json-key">"region"</span>: <span class="json-str">"Asia-Pacific"</span><br>
+        &nbsp;&nbsp;&nbsp;<span class="json-key">"updated"</span>: <span class="json-str">"2025-06-15..."</span><br>
+        &nbsp;&nbsp;<span class="tree-toggle">▼</span> <span class="json-key">"cities"</span>: <span class="json-bkt">[</span> <span class="tree-count">3 items</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tree-toggle">▼</span> <span class="json-bkt">{</span> <span class="tree-count">6 items</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"name"</span>: <span class="json-str">"Seoul"</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"country"</span>: <span class="json-str">"KR"</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"temp"</span>: <span class="json-num">27</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"humidity"</span>: <span class="json-num">62</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"condition"</span>: <span class="json-str">"Partly Cloudy"</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tree-toggle">▶</span> <span class="json-key">"wind"</span>: <span class="json-bkt">{</span><span class="tree-count">...2</span><span class="json-bkt">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tree-toggle">▶</span> <span class="json-bkt">{</span> <span class="tree-count">...Tokyo</span> <span class="json-bkt">}</span><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tree-toggle">▶</span> <span class="json-bkt">{</span> <span class="tree-count">...Sydney</span> <span class="json-bkt">}</span>
+      </div>
+      <div class="status-bar">
+        <span class="status-badge">Valid</span>
+        3 cities
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Explain overlay -->
+  <div class="ai-overlay">
+    <div class="ai-modal">
+      <div class="ai-header">
+        <div class="ai-title">AI Explain</div>
+        <div class="ai-tabs">
+          <div class="ai-tab">Basic</div>
+          <div class="ai-tab ai-tab-active">AI</div>
+        </div>
+      </div>
+      <div class="ai-body">
+        <div class="ai-line ai-h3">Structure Overview</div>
+        <div class="ai-line">This JSON contains <strong>regional weather data</strong> for the Asia-Pacific area.</div>
+        <div class="ai-line">Root object has <span class="ai-badge">4 keys</span> including a <span class="ai-badge">cities</span> array with 3 entries.</div>
+        <div class="ai-line ai-h3">Data Patterns</div>
+        <div class="ai-line">Each city object has a consistent schema: name, country, temp, humidity, condition, wind.</div>
+        <div class="ai-line">Temperature in <span class="ai-badge">celsius</span>, wind speed in <span class="ai-badge">km/h</span>.</div>
+        <div class="ai-line">Timestamps follow <span class="ai-badge">ISO 8601</span> format.</div>
+        <div class="ai-line" style="color:#64748b;margin-top:8px">
+          Supports: English, Korean, Japanese, Chinese <span class="ai-dot">|</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features flash -->
+  <div class="features-overlay">
+    <div class="feat-row">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(124,58,237,0.15)">
+          <span style="color:#c084fc">{ }</span>
+        </div>
+        <div>
+          <h3>Schema Validation</h3>
+          <p>Auto-generate & validate</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(52,211,153,0.15)">
+          <span style="color:#34d399;font-family:'JetBrains Mono';font-size:16px;font-weight:600">jq</span>
+        </div>
+        <div>
+          <h3>jq-style Queries</h3>
+          <p>Dot notation & wildcards</p>
+        </div>
+      </div>
+    </div>
+    <div class="feat-row">
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(96,165,250,0.15)">
+          <span style="color:#60a5fa">3x</span>
+        </div>
+        <div>
+          <h3>Three View Modes</h3>
+          <p>Text, Tree, Table</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(251,191,36,0.15)">
+          <span style="color:#fbbf24">⚡</span>
+        </div>
+        <div>
+          <h3>Format & Sort</h3>
+          <p>One-click transforms</p>
+        </div>
+      </div>
+    </div>
+    <div class="feat-row">
+      <div class="feat-card" style="border-color:rgba(124,58,237,0.3)">
+        <div class="feat-icon" style="background:rgba(124,58,237,0.15)">
+          <span style="color:#c084fc">✦</span>
+        </div>
+        <div>
+          <h3>AI-Powered Analysis</h3>
+          <p>Understands your JSON</p>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon" style="background:rgba(248,113,113,0.15)">
+          <span style="color:#f87171">∞</span>
+        </div>
+        <div>
+          <h3>Free Forever</h3>
+          <p>No signup. No ads.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NARRATOR BUBBLES ===== -->
+<div class="narrator">
+  <div class="bubble b1">JSON 에디터 하나 만들었는데요,</div>
+  <div class="bubble b2">일단 <em>다크모드</em>가 기본입니다.</div>
+  <div class="bubble b3"><em>테마</em>도 7개 있어요. 취향껏 고르세요.</div>
+  <div class="bubble b4">근데 진짜 핵심은 이거예요.</div>
+  <div class="bubble b5"><em>AI</em>가 JSON 구조를 분석해줍니다. <small>실시간 스트리밍으로.</small></div>
+  <div class="bubble b6">스키마 검증, jq 쿼리, 포맷/정렬까지 다 됩니다.</div>
+  <div class="bubble b7">회원가입 없이 <em>무료</em>입니다.</div>
+</div>
+
+<!-- ===== CTA FINAL ===== -->
+<div class="cta-overlay">
+  <div class="cta-logo">Jsonize</div>
+  <div class="cta-url">jsonize.vercel.app</div>
+  <div class="cta-pills">
+    <div class="cta-pill cta-pill-glow">Dark Mode</div>
+    <div class="cta-pill">7 Themes</div>
+    <div class="cta-pill">AI Explain</div>
+    <div class="cta-pill">Schema</div>
+  </div>
+  <div class="cta-free">No signup. Free forever.</div>
+</div>
+
+<!-- Audio narration -->
+<audio id="a1" src="audio/line1.aiff" preload="auto"></audio>
+<audio id="a2" src="audio/line2.aiff" preload="auto"></audio>
+<audio id="a3" src="audio/line3.aiff" preload="auto"></audio>
+<audio id="a4" src="audio/line4.aiff" preload="auto"></audio>
+<audio id="a5" src="audio/line5.aiff" preload="auto"></audio>
+<audio id="a6" src="audio/line6.aiff" preload="auto"></audio>
+<audio id="a7" src="audio/line7.aiff" preload="auto"></audio>
+
+<!-- Click to start (autoplay requires user gesture) -->
+<div id="startScreen" style="
+  position:absolute; inset:0; z-index:10000;
+  background:rgba(10,10,18,0.95);
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  cursor:pointer;
+">
+  <div style="
+    font-size:72px; font-weight:800; letter-spacing:-2px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  ">Jsonize</div>
+  <div style="
+    margin-top:20px; font-size:20px; color:#94a3b8;
+  ">Click to play</div>
+  <div style="
+    margin-top:32px; width:64px; height:64px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    display:flex; align-items:center; justify-content:center;
+  ">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg>
+  </div>
+</div>
+
+<script>
+  // Narration timings (ms) — synced with bubble animations
+  const cues = [
+    { id: 'a1', time: 500 },
+    { id: 'a2', time: 3500 },
+    { id: 'a3', time: 6000 },
+    { id: 'a4', time: 8800 },
+    { id: 'a5', time: 11500 },
+    { id: 'a6', time: 15500 },
+    { id: 'a7', time: 19000 },
+  ];
+
+  document.getElementById('startScreen').addEventListener('click', function() {
+    // Hide start screen
+    this.style.display = 'none';
+
+    // Restart all CSS animations by re-inserting body content
+    document.body.style.animation = 'none';
+    document.body.offsetHeight; // force reflow
+
+    // Schedule audio playback
+    cues.forEach(cue => {
+      setTimeout(() => {
+        const audio = document.getElementById(cue.id);
+        if (audio) {
+          audio.currentTime = 0;
+          audio.play().catch(() => {});
+        }
+      }, cue.time);
+    });
+  });
+</script>
+
+</body>
+</html>
