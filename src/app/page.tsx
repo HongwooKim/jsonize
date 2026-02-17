@@ -12,6 +12,7 @@ import AdBanner from "@/components/AdBanner";
 import SchemaPanel from "@/components/SchemaPanel";
 import UrlLoader from "@/components/UrlLoader";
 import ExplainPanel from "@/components/ExplainPanel";
+import FeedbackWidget from "@/components/FeedbackWidget";
 
 type ViewMode = "text" | "tree" | "table";
 
@@ -206,6 +207,8 @@ export default function Home() {
           onClose={() => setExplainTarget(null)}
         />
       )}
+
+      <FeedbackWidget />
     </div>
   );
 }

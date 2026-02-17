@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Discussions
+    url: https://github.com/jm614qk2l/jsonize/discussions
+    about: Ask questions, share ideas, or start a general discussion
+  - name: Discord Community
+    url: https://discord.gg/jsonize
+    about: Chat with the community in real-time
